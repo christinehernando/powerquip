@@ -15,7 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Auth::routes();
+
+// Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+
 /*
 	- register a route named 'home' that will use the index method of HomeController when a get request is sent to the '/home' URI
 		- Route::?('?', '?')->?('?');

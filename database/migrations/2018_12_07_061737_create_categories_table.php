@@ -22,6 +22,14 @@ class CreateCategoriesTable extends Migration
                 - use the softDeletes method of $table
                 - use the timestamps method of $table
         */
+        Schema::create('categories', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->char('status')->default('0'); //0 - deactivated, 1 - activated
+            $table->softDeletes();
+            $table->timestamps();
+        });
     }
 
     /**

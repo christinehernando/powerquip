@@ -27,20 +27,28 @@
       @forelse($users as $index => $user)
         <tr>
           <td class="text-center">{{ ++$index }}</td>
-          <td class=""> {{$user->first_name}} </td>
-          <td class=""> {{$user->middle_initial}} </td>
-          <td class=""> {{$user->last_name}} </td>
-          <td class=""> {{$user->birthday}} </td>
-          <td class=""> {{$user->type}} </td>
-          <td class=""> {{$user->status}} </td>
+          <td class=""> {{ ucfirst($user->first_name) }} </td>
+          <td class=""> {{ ucfirst($user->middle_initial) }} </td>
+          <td class=""> {{ ucfirst($user->last_name) }} </td>
+          <td class=""> {{ $user->birthday }} </td>
+          <td class=""> {{ ucfirst($user->type) }} </td>
+          <td class=""> 
+            @if($user->status == 0)
+              <span class="text-secondary"> Not Active </span>
+            @else
+              <span class="text-success"> Active </span>
+            @endif 
+          </td>
           <td class="text-center"> 
             @if ($user->status == 0)
                 button to activate user
             @else
-                <a href="{{ route('register') }}" class="btn btn-primary" style="display: inline-block;">
-                  <i class="fas fa-edit"></i>
-                </a>
-                <form action="/users/{{$user->id}}" method="POST" style="display: inline-block;">
+                <form action="/users/{{ $user->id }}" method="POST" style="display: inline-block;>
+                  @csrf
+                  @method('PATCH')
+                  <button class="btn btn-primary"><i class="fas fa-edit"></i></button>
+                </form>
+                <form action="/users/{{ $user->id }}" method="POST" style="display: inline-block;">
                   @csrf
                   @method('DELETE')
                   <input type="text" name="status" hidden value="1">

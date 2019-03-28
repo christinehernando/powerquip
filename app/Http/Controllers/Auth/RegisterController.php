@@ -50,9 +50,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255', 'not_in:Administrator'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'first_name' => ['required', 'string', 'max:255', 'not_in:Administrator'],
+            'middle_initial' => ['required', 'string', 'max:255', 'not_in:Administrator'],
+            'last_name' => ['required', 'string', 'max:255', 'not_in:Administrator'],
+            'birthday' => ['required', 'string', 'max:255','date', 'not_in:Administrator'],
+            'username' => ['required', 'string', 'max:255', 'not_in:Administrator'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'contact_number' => ['required', 'string', 'max:255', 'not_in:Administrator'],
             'type' => ['required', 'string', 'max:6'],
         ]);
     }
@@ -66,10 +71,15 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'type' => $data['type'],
+            'first_name' => $data['first_name'],
+            'middle_initial' => $data['middle_initial'],
+            'last_name' => $data['last_name'],
+            'birthday' => $data['birthday'],
+            'username' => $data['username'],
             'password' => Hash::make($data['password']),
+            'email' => $data['email'],
+            'contact_number' => $data['contact_number'],
+            'type' => $data['type'],
         ]);
     }
 

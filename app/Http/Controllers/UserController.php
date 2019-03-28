@@ -21,9 +21,13 @@ class UserController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255', 'not_in:Administrator'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'first_name' => ['required', 'string', 'max:255', 'not_in:Administrator'],
+            'middle_initial' => ['required', 'string', 'max:255', 'not_in:Administrator'],
+            'last_name' => ['required', 'string', 'max:255', 'not_in:Administrator'],
+            'birthday' => ['required', 'string', 'max:255', 'not_in:Administrator'],
+            'username' => ['required', 'string', 'max:255', 'not_in:Administrator'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'type' => ['required', 'string', 'max:6'],
         ]);
     }
@@ -99,16 +103,27 @@ class UserController extends Controller
         //
 
         $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['nullable', 'string', 'min:6', 'confirmed'],
+            'first_name' => ['required', 'string', 'max:255', 'not_in:Administrator'],
+            'middle_initial' => ['required', 'string', 'max:255', 'not_in:Administrator'],
+            'last_name' => ['required', 'string', 'max:255', 'not_in:Administrator'],
+            'birthday' => ['required', 'string', 'max:255', 'not_in:Administrator'],
+            'username' => ['required', 'string', 'max:255', 'not_in:Administrator'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'contact_number' => ['required', 'string', 'max:255', 'not_in:Administrator'],
             'type' => ['required', 'string', 'max:6'],
         ]);
 
 
 
-        $user->name = $request->name;
+        $user->first_name = $request->first_name;
+        $user->middle_initial = $request->middle_initial;
+        $user->last_name = $request->last_name;
+        $user->birthday = $request->birthday;
+        $user->username = $request->username;
         $user->email = $request->email;
+        $user->contact_number = $request->contact_number;
+        $user->type = $request->type;
         if($request->password != '')
         {
             $user->password = Hash::make($request->password);
@@ -145,6 +160,22 @@ class UserController extends Controller
             - redirect to '/users'
                 return ?('?');
         */
+
+
+        $users = User::find($user->id);
+
+        if($user->type == 'admin'){
+            return abort(401);
+        } else {
+            $user->status = '0';
+        }
+
+        $user->save();
+
+        return back();
+
+
+        
     }
 
     public function books_borrowed()

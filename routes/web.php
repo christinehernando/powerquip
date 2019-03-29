@@ -19,28 +19,31 @@ Route::get('/', function () {
 Auth::routes();
 
 // Route::get('/', 'HomeController@index');
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::resource('/users', 'UserController');
-Route::patch('/users/{id}/approve', 'UserController@approve');
-
-
-
-Route::get('/ulist', 'UserController@index');
-
 
 
 
 /*
-	DONE
 	- register a route named 'home' that will use the index method of HomeController when a get request is sent to the '/home' URI
 		- Route::?('?', '?')->?('?');
+*/
+Route::get('/home', 'HomeController@index')->name('home');
 
+
+/*
 	- register a resourceful route that will use the corresponding methods of BookController when HTTP requests are made to the 'books' URI
 		- Route::?('?', '?');
+*/
+Route::resource('/registrytool', 'RegistryToolController');
 
+
+/*
 	- register a resourceful route that will use the corresponding methods of CategoryController when HTTP requests are made to the 'categories' URI
 		- Route::?('?', '?');
+*/
+Route::resource('/categories', 'CategoryController');
+
+
+/*
 
 	- register a route that will use the borrow_form method of BookController when a get request is sent to the '/books/{id}/borrow_form' URI. Chain the middleware() method using 'available' as its argument.
 		- Route::?('?', '?')->?('?');
@@ -56,12 +59,24 @@ Route::get('/ulist', 'UserController@index');
 
 	- register a route that will use the book_borrowers method of BookController when a get request is sent to the '/api/book_borrowers/{book_id}/{user_id}' URI. 
 		- Route::?('?', '?');
+*/
 
+
+/*
 	- register a resourceful route that will use the corresponding methods of UserController when HTTP requests are made to the '/users' URI
 		- Route::?('?', '?');
+*/
+Route::resource('/users', 'UserController');
 
+/*
 	- register a route that will use the approve method of UserController when a post request is sent to the '/users/{id}/approve' URI. 
 		- Route::?('?', '?');
+*/
+Route::patch('/users/{id}/approve', 'UserController@approve');
+
+
+
+/*
 
 	- register a route that will use the books_borrowed method of UserController when a get request is sent to the '/account' URI. 
 		- Route::?('?', '?');

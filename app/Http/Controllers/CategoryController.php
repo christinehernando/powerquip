@@ -16,6 +16,7 @@ class CategoryController extends Controller
             - add a middleware with an argument of 'is.admin'
                 - $this->?('?');
         */
+        $this->middleware('is.admin');
     }
 
     /**
@@ -33,6 +34,8 @@ class CategoryController extends Controller
             - return the 'categories.category_list' view, using the compact() method to pass the $categories variable
                 - return ?('?', compact('?'));
         */
+        $categories = Category::all();
+        return view('categories.category_list', compact('categories'));
     }
 
     /**
@@ -165,5 +168,14 @@ class CategoryController extends Controller
             - redirect to '/categories'
                 - return ?('?');
         */
+
+        $category = Category::find($category->id);
+
+        $category->status = "0";
+        
+
+        $category->save();
+
+        return back();
     }
 }

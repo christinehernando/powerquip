@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use App\RegistryTool;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class RegistryToolController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('is.admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,6 +20,8 @@ class RegistryToolController extends Controller
     public function index()
     {
         //
+        $tools = RegistryTool::all();
+        return view('registrytools.registrytool_list', compact('tools'));
     }
 
     /**

@@ -100,6 +100,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+
         //
 
         $validatedData = $request->validate([
@@ -108,8 +109,7 @@ class UserController extends Controller
             'last_name' => ['required', 'string', 'max:255', 'not_in:Administrator'],
             'birthday' => ['required', 'string', 'max:255', 'not_in:Administrator'],
             'username' => ['required', 'string', 'max:255', 'not_in:Administrator'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255'],
             'contact_number' => ['required', 'string', 'max:255', 'not_in:Administrator'],
             'type' => ['required', 'string', 'max:6'],
         ]);
@@ -121,7 +121,6 @@ class UserController extends Controller
         $user->last_name = $request->last_name;
         $user->birthday = $request->birthday;
         $user->username = $request->username;
-        $user->email = $request->email;
         $user->contact_number = $request->contact_number;
         $user->type = $request->type;
         if($request->password != '')
@@ -218,6 +217,15 @@ class UserController extends Controller
             - redirect to  '/users'
                 - return ?('?');
         */
+
+        $user = User::find($id);
+
+        $user->status = "1";
+
+        $user->save();
+
+        return back();
+
     }
 
 }

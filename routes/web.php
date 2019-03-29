@@ -22,6 +22,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/users', 'UserController');
+Route::patch('/users/{id}/approve', 'UserController@approve');
+
+
+
 Route::get('/ulist', 'UserController@index');
 
 

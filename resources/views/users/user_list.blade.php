@@ -7,7 +7,7 @@
 @section('content')
 <div class="container"> 
   <h1 class="text-center">User List</h1>
-  <a href="{{ route('register') }}" class="btn btn-success float-right">
+  <a href="{{ route('register') }}" class="btn btn-primary float-right">
     Add New User
   </a>
   <table class="table table-striped table-bordered mt-5">
@@ -17,6 +17,7 @@
         <th>First Name</th>
         <th>Middle Initial</th>
         <th>Last Name</th>
+        <th>Username</th>
         <th>Birthday</th>
         <th>Type</th>
         <th>Status</th>
@@ -30,6 +31,7 @@
           <td class=""> {{ ucfirst($user->first_name) }} </td>
           <td class=""> {{ ucfirst($user->middle_initial) }} </td>
           <td class=""> {{ ucfirst($user->last_name) }} </td>
+          <td class=""> {{ $user->username }} </td>
           <td class=""> {{ $user->birthday }} </td>
           <td class=""> {{ ucfirst($user->type) }} </td>
           <td class=""> 
@@ -41,13 +43,16 @@
           </td>
           <td class="text-center"> 
             @if ($user->status == 0)
-                button to activate user
-            @else
-                <form action="/users/{{ $user->id }}" method="POST" style="display: inline-block;>
+                <form action="/users/{{ $user->id }}/approve" method="POST" style="display: inline-block;">
                   @csrf
                   @method('PATCH')
-                  <button class="btn btn-primary"><i class="fas fa-edit"></i></button>
+                  <input type="text" name="status" hidden value="{{$user->id}}">
+                  <button class="btn btn-success">Activate</i></button>
                 </form>
+            @else
+                <a href="/users/{{ $user->id }}/edit" >
+                  <button class="btn btn-primary"><i class="fas fa-edit"></i></button>
+                </a>
                 <form action="/users/{{ $user->id }}" method="POST" style="display: inline-block;">
                   @csrf
                   @method('DELETE')
@@ -71,7 +76,6 @@
 @endsection
 
 
-testing horray! nakarating
 
 
 

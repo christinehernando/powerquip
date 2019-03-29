@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 use App\Category;
 use App\Book;
@@ -50,6 +51,11 @@ class CategoryController extends Controller
             - return the 'categories.add_categories' view
                 - return ?('?');
         */
+
+       return view('categories.add_categories');
+
+
+
     }
 
     /**
@@ -85,6 +91,23 @@ class CategoryController extends Controller
             - redirect to '/categories'
                 - return ?('?');
         */
+
+        $validatedData = $request->validate([
+            'category_name' => ['required', 'string', 'max:255'],
+            'category_description' => ['string', 'max:255'],
+        ]);
+
+        return Category::create([
+            'category_name' => $request['category_name'],
+            'category_description' => $request['category_description'],
+        ]);
+
+        $category->name = $request->category_name;
+        $category->description = $request->category_description;
+
+        $category->save();
+
+        return redirect('/categories');
     }
 
     /**
@@ -113,6 +136,9 @@ class CategoryController extends Controller
             - return the 'categories.edit_categories' view, using the compact() method to pass the variable $category
                 - return ?('?', compact('?'));
         */
+        return view('categories.edit_categories', compact('category'));
+
+
     }
 
     /**
@@ -146,6 +172,20 @@ class CategoryController extends Controller
             - redirect to '/categories'
                 - return ?('?');
         */
+
+        $validatedData = $request->validate([
+            'category_name' => ['required', 'string', 'max:255'],
+            'category_description' => ['string', 'max:255'],
+        ]);
+
+        $category->name = $request->category_name;
+        $category->description = $request->category_description;
+
+        $category->save();
+
+        return redirect('/categories');
+
+
     }
 
     /**
@@ -171,6 +211,7 @@ class CategoryController extends Controller
 
         $category = Category::find($category->id);
 
+
         $category->status = "0";
         
 
@@ -178,4 +219,32 @@ class CategoryController extends Controller
 
         return back();
     }
+
+    public function activate($id)
+    {
+        /*
+            - selectively query the User model using the find() method with the passed $id as its argument. Save the result as a variable named $user
+                - $user = ?::?(?);
+
+            - set the status property of $user to be equal to 1
+                - $user->? = '?';
+
+            - use the save() method on $user
+                - $user->?();
+
+            - redirect to  '/users'
+                - return ?('?');
+        */
+
+        $category = Category::find($id);
+
+        $category->status = "1";
+
+        $category->save();
+
+        return back();
+
+    }
 }
+
+

@@ -24,7 +24,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">User Enrollment</div>
+                <div class="card-header">User Update Information</div>
 
                 <div class="card-body">
                     <form method="POST" action="/users/{{ $user->id}}">

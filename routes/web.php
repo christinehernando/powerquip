@@ -33,6 +33,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 	- register a resourceful route that will use the corresponding methods of BookController when HTTP requests are made to the 'books' URI
 		- Route::?('?', '?');
 */
+
 Route::resource('/registrytool', 'RegistryToolController');
 
 
@@ -40,7 +41,11 @@ Route::resource('/registrytool', 'RegistryToolController');
 	- register a resourceful route that will use the corresponding methods of CategoryController when HTTP requests are made to the 'categories' URI
 		- Route::?('?', '?');
 */
+Route::patch('/categories/{id}/activate', 'CategoryController@activate')->name('categories.activate');
 Route::resource('/categories', 'CategoryController');
+
+
+
 
 
 /*

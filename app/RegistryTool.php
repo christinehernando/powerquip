@@ -10,4 +10,12 @@ class RegistryTool extends Model
 {
     //
      use SoftDeletes;
+
+    //  protected $fillable = [
+    //    name in the form of add blade 
+    // ];
+
+    protected $dates = ['deleted_at'];
+
+    
 }

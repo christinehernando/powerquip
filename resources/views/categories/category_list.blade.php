@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Add Book Details
+    Category List
 @endsection
 
 
@@ -36,14 +36,14 @@
           </td>
           <td class="text-center"> 
             @if ($category->status == 0)
-                <form action="" method="POST" style="display: inline-block;">
+                <form action="/categories/{{ $category->id }}/activate" method="POST" style="display: inline-block;">
                   @csrf
                   @method('PATCH')
                   <input type="text" name="status" hidden value="{{$category->id}}">
                   <button class="btn btn-success">Activate</i></button>
                 </form>
             @else
-                <a href="" >
+                <a href="/categories/{{ $category->id }}/edit" >
                   <button class="btn btn-primary"><i class="fas fa-edit"></i></button>
                 </a>
                 <form action="/categories/{{ $category->id }}" method="POST" style="display: inline-block;">
@@ -59,7 +59,7 @@
         </tr>
       @empty
         <tr>
-            <td colspan="8"> Oh no users in the database! Hala you deleted everything!</td>
+            <td colspan="5" class="text-center"> Oh no categories in the database! Hala you deleted everything!</td>
           </tr>
       @endforelse
     </tbody>

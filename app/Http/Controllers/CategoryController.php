@@ -217,6 +217,7 @@ class CategoryController extends Controller
             - redirect to '/categories'
                 - return ?('?');
         */
+        dd($category);
 
         $category = Category::find($category->id);
 

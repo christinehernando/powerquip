@@ -16,11 +16,16 @@ class Category extends Model
     */
 
 	protected $fillable = [
-        'category_name',
-        'category_description', 
+        'name',
+        'description', 
     ];
 
     protected $dates = ['deleted_at'];
 
+    /* establish one to many relationship to*/
+    public function registrytools()
+    {
+        return $this->hasMany('App\RegistryTool');
+    }
 
 }

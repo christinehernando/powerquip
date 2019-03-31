@@ -22,9 +22,9 @@ class InventoryToolsController extends Controller
     {
         //
 
-        $inventoryTools = RegistryTool::with('inventorytools')->get();
-       
-        return view ('inventorytools.inventorytools_list',compact('inventoryTools'));
+        $registryTools = RegistryTool::with('inventorytools')->get();
+        
+        return view ('inventorytools.inventorytools_list',compact('registryTools'));
     }
 
     /**

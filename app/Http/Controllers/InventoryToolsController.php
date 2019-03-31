@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\InventoryTools;
+use App\RegistryTool;
 use Illuminate\Http\Request;
 
 class InventoryToolsController extends Controller
-{
+{   
+    public function __construct()
+    {
+        $this->middleware('is.admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,6 +21,10 @@ class InventoryToolsController extends Controller
     public function index()
     {
         //
+
+        $inventoryTools = RegistryTool::with('inventorytools')->get();
+       
+        return view ('inventorytools.inventorytools_list',compact('inventoryTools'));
     }
 
     /**

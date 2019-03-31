@@ -37,6 +37,8 @@ Route::patch('/registrytool/{id}/activate', 'RegistryToolController@activate')->
 Route::resource('/registrytool', 'RegistryToolController');
 
 
+Route::resource('/inventorytools','InventoryToolsController');
+
 /*
 	- register a resourceful route that will use the corresponding methods of CategoryController when HTTP requests are made to the 'categories' URI
 		- Route::?('?', '?');

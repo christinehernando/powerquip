@@ -22,7 +22,7 @@ class Category extends Model
 
     protected $dates = ['deleted_at'];
 
-    /* establish one to many relationship to*/
+    /* RELATIONSHP */
     public function registrytools()
     {
         return $this->hasMany('App\RegistryTool');

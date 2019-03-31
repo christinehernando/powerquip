@@ -21,8 +21,7 @@ class RegistryToolController extends Controller
     public function index()
     {
         //
-        // $tools = RegistryTool::with('category')->get();
-        $tools = RegistryTool::all();
+        $tools = RegistryTool::with('category')->get();
         return view('registrytools.registrytool_list', compact('tools'));
     }
 
@@ -87,10 +86,13 @@ class RegistryToolController extends Controller
      * @param  \App\RegistryTool  $registryTool
      * @return \Illuminate\Http\Response
      */
-    public function edit(RegistryTool $registryTool)
+    public function edit($id)
     {
-        //
-        return view('registrytools.edit_registrytools', compact('registryTool'));
+        //Bat di gumagana pag RegistryTool $registryTool as parameters
+        $registrytool = RegistryTool::find($id);
+        $categories = Category::all();
+
+        return view('registrytools.edit_registrytools', compact('registrytool','categories'));
     }
 
     /**
@@ -100,7 +102,7 @@ class RegistryToolController extends Controller
      * @param  \App\RegistryTool  $registryTool
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RegistryTool $registryTool)
+    public function update(Request $request, $id)
     {
         //
         $validatedData = $request->validate([
@@ -109,6 +111,8 @@ class RegistryToolController extends Controller
             'registrytool_image' => ['required', 'string'],
             'registrytool_category' => ['required'],
         ]);
+
+        $registrytool = RegistryTool::find($id);
 
         $registrytool->asset_name = $request->registrytool_name;
         $registrytool->description = $request->registrytool_description;
@@ -127,12 +131,12 @@ class RegistryToolController extends Controller
      * @param  \App\RegistryTool  $registryTool
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RegistryTool $registryTool)
+    public function destroy($id)
     {
         // //
         // $registryTool = RegistryTool::find($registryTool->id);
 
-        dd($registryTool);
+        $registryTool = RegistryTool::find($id);
 
         $registryTool->status = "0";
         

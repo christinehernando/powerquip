@@ -12,7 +12,7 @@ class RegistryTool extends Model
      use SoftDeletes;
 
     //  protected $fillable = [
-    //    name in the form of add blade 
+    //    name in db 
     // ];
 
     protected $fillable = [
@@ -24,10 +24,17 @@ class RegistryTool extends Model
 
     protected $dates = ['deleted_at'];
 
+    /* RELATIONSHP */
+
     public function category()
     {
-        return $this->belongsTo('App\Category');
-    }    
+        return $this->belongsTo('App\Category','category_id');
+    }   
+
+    public function inventorytools()
+    {
+        return $this->hasMany('App\InventoryTools');
+    } 
 
     
 }

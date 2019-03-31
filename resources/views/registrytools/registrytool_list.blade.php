@@ -23,32 +23,32 @@
       </tr>
     </thead>
     <tbody>
-      @forelse($tools as $index => $tool)
+      @forelse($tools as $index => $registrytool)
         <tr>
           <td class="text-center">{{ ++$index }}</td>
-          <td class=""> {{ ucfirst($tool->asset_name) }} </td>
-          <td class=""> {{ ucfirst($tool->description) }} </td>
-          <!-- <td class=""> {{ ucfirst($tool->category->name) }} </td> -->
+          <td class=""> {{ ucfirst($registrytool->asset_name) }} </td>
+          <td class=""> {{ ucfirst($registrytool->description) }} </td>
+          <td class=""> {{ ucfirst($registrytool->category->name) }} </td>
           <td class=""> 
-            @if($tool->status == 0)
+            @if($registrytool->status == 0)
               <span class="text-secondary"> Not In Use </span>
             @else
               <span class="text-success"> In Use </span>
             @endif 
           </td>
           <td class="text-center"> 
-            @if ($tool->status == 0)
-                <form action="/registrytool/{{ $tool->id }}/activate"  method="POST" style="display: inline-block;">
+            @if ($registrytool->status == 0)
+                <form action="/registrytool/{{ $registrytool->id }}/activate"  method="POST" style="display: inline-block;">
                   @csrf
                   @method('PATCH')
-                  <input type="text" name="status" hidden value="{{$tool->id}}">
+                  <input type="text" name="status" hidden value="{{$registrytool->id}}">
                   <button class="btn btn-success">Activate</i></button>
                 </form>
             @else
-                <a href="/registrytool/{{ $tool->id }}/edit" >
+                <a href="/registrytool/{{ $registrytool->id }}/edit" >
                   <button class="btn btn-primary"><i class="fas fa-edit"></i></button>
                 </a>
-                <form action="/registrytool/{{ $tool->id }}" method="POST" style="display: inline-block;">
+                <form action="/registrytool/{{ $registrytool->id }}" method="POST" style="display: inline-block;">
                   @csrf
                   @method('DELETE')
                   <input type="text" name="status" hidden value="1">

@@ -32,7 +32,7 @@
 			              <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
 			             <div class="col-md-6">
-			                  <input id="edit_registrytool_name" type="text" class="form-control{{ $errors->has('registrytool_name') ? ' is-invalid' : '' }}" name="registrytool_name" value="{{ old('registrytool_name') }}" required autofocus>
+			                  <input id="edit_registrytool_name" type="text" class="form-control{{ $errors->has('registrytool_name') ? ' is-invalid' : '' }}" name="registrytool_name" value="{{ $registrytool->asset_name }}" required autofocus>
 
 			                  @if ($errors->has('registrytool_name'))
 			                      <span class="invalid-feedback" role="alert">
@@ -46,7 +46,7 @@
 			                <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
 
 			                <div class="col-md-6">
-			                    <input id="edit_registrytool_description" type="text" class="form-control{{ $errors->has('registrytool_description') ? ' is-invalid' : '' }}" name="registrytool_description" value="{{ old('registrytool_description') }}" required autofocus>
+			                    <input id="edit_registrytool_description" type="text" class="form-control{{ $errors->has('registrytool_description') ? ' is-invalid' : '' }}" name="registrytool_description" value="{{ $registrytool->description }}" required autofocus>
 
 			                    @if ($errors->has('registrytool_description'))
 			                        <span class="invalid-feedback" role="alert">
@@ -60,8 +60,8 @@
 			                <label for="category" class="col-md-4 col-form-label text-md-right">{{ __('Category') }}</label>
 
 			                <div class="col-md-6">
-			                    <select id="edit_registrytool_category" type="text" class="form-control{{ $errors->has('registrytool_category') ? ' is-invalid' : '' }}" name="registrytool_category" value="{{ old('registrytool_category') }}" required autofocus>
-			                        <option></option>
+			                    <select id="edit_registrytool_category" type="text" class="form-control{{ $errors->has('registrytool_category') ? ' is-invalid' : '' }}" name="registrytool_category"  required autofocus>
+			                        <option value="{{ $registrytool->category_id }}" selected=""> {{ $registrytool->category->name}}   </option>
 			                        @foreach ($categories as $key => $category)
 			                          <option  value="{{ $category->id }}"> {{ $category->name }} </option>
 			                        @endforeach
@@ -92,7 +92,7 @@
 			            <div class="form-group row mb-0">
 			                <div class="col-md-6 offset-md-4">
 			                    <button type="submit" class="btn btn-primary">
-			                        {{ __('Add Tool To Registry') }}
+			                        {{ __('Update Tool To Registry') }}
 			                    </button>
 			                </div>
 			            </div>

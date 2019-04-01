@@ -10,3 +10,9 @@ function readURL(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+
+document.querySelectorAll('.inventorytools-btn').forEach(function(btn){
+	btn.addEventListener('click',function(){
+		
+	});
+});

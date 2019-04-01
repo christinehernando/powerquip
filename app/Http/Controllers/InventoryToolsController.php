@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\InventoryTools;
 use App\RegistryTool;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class InventoryToolsController extends Controller
 {   
@@ -23,7 +24,7 @@ class InventoryToolsController extends Controller
         //
 
         $registryTools = RegistryTool::with('inventorytools')->get();
-        
+
         return view ('inventorytools.inventorytools_list',compact('registryTools'));
     }
 
@@ -43,9 +44,58 @@ class InventoryToolsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function generate_tool_serial()
+    {
+       $tool_serial = '';
+
+        while($tool_serial == '')
+        {
+            $random_string = date('ymd').rand();
+            $test = InventoryTools::all();
+            $test_result = $test->where('tool_serial',$random_string);
+
+            if($test_result->count() == 0)
+            {
+                $tool_serial = $random_string;
+                return $tool_serial;
+            } 
+
+            return $tool_serial;
+        }
+
+    }
+
+    public function add($id)
+    {
+     
+        $tool_serial = $this->generate_tool_serial();
+
+        $registryTools = RegistryTool::all();
+
+        $tool_name = RegistryTool::find($id);
+
+          return view('inventorytools.add_inventorytools',compact('id','tool_serial','registryTools','tool_name'));
+
+    }
+
     public function store(Request $request)
     {
         //
+
+        $validatedData = $request->validate([
+            'add_inventorytool_registry_tool_id' => ['required'],
+            'add_inventorytool_name' => ['required'],
+        ]);
+
+        $tool = new InventoryTools;
+
+        $tool->tool_serial = $request->add_inventorytool_name;
+        $tool->registry_tool_id = $request->add_inventorytool_registry_tool_id;
+
+        $tool->save();
+
+        return redirect('/inventorytools');
     }
 
     /**

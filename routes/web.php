@@ -36,7 +36,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::patch('/registrytool/{id}/activate', 'RegistryToolController@activate')->name('registrytool.activate');
 Route::resource('/registrytool', 'RegistryToolController');
 
-
+Route::get('/inventorytools/{id}/add', 'InventoryToolsController@add')->name('inventorytools.add');
 Route::resource('/inventorytools','InventoryToolsController');
 
 /*

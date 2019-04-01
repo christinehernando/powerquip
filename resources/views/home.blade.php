@@ -4,29 +4,51 @@
     Home
 @endsection
 
-{--
+<!-- {--
     At a minimum, this view should have a search bar to find particular titles and a "Browse" button that will bring the user to the catalogue of books on offer. 
-    --}
+    --} -->
 
-EDIT TEMPorarY
+
 @section('content')
-	<div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    PowerQuip
-                </div>
-
+    <div class="container">
+        <div class="row justify-content-center mt-5 mb-5">
+            <div class="col-md-8">
+                <form action="/home/search" method="POST" role="search" >
+                    @csrf
+                    <div class="input-group justify-content-center">
+                        <input type="text" class="form-control ml-3" name="search" value="Search tools" id="search-value"> 
+                        <button type="submit" class="btn btn-success ml-2" id="search-button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <a href="" class="btn btn-success ml-3">
+                            Browse Tools
+                        </a>    
+                    </div>
+                </form>
             </div>
         </div>
+        <div class="row justify-content-center">
+            <div class="col-md-10 justify-content-center"> 
+                {{ $result }}
+               
+                @if(!empty($result->asset_name))
+                   
+                        sa registry tool ni gikuha
+                
+                 
+                @elseif(!empty($result->name))
+                        sa categories gikan
+
+                @else
+
+                    
+                @endif
+                
+<!-- SHOW WHEN BROWSE BUTTON IS CLICKED  -->
+              
+<!-- SHOW WHEN BROWSE BUTTON IS CLICKED  -->
+            </div>
+        </div>
+    </div>
+	
 @endsection

@@ -36,7 +36,7 @@
 						<td class="text-center"> {{ ++$index }} </td>
 						<td> {{ $tool->tool_serial }} </td>
 						<td> {{ $tool->status }}  </td>
-						<td> <button type="button" class="inventorytools-btn btn btn-primary float-right" ><i class="fas fa-edit"> </i></button> </td>
+						<td> <button type="button" class="inventorytools-btn btn btn-primary float-right" data-toggle="modal" data-target="#updateInventoryToolStatus"><i class="fas fa-edit"> </i></button> </td>
 
 					</tr>
 				@empty
@@ -68,6 +68,7 @@
 	        Change status of <span id="inventorytools_update"></span> 
 	      </div>
 	      <div class="modal-footer">
+	      <!-- USE JS TRAVERSING TO REFLECT tool details being updated -->
 	      	<form action="" method="POST">
 	      		<span style="display: inline-block;">
 	      			<span style="display: inline-block;">from</span>

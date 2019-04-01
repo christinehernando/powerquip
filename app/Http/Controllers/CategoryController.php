@@ -97,11 +97,6 @@ class CategoryController extends Controller
             'category_description' => ['string', 'max:255'],
         ]);
 
-        return Category::create([
-            'name' => $request['category_name'],
-            'description' => $request['category_description'],
-        ]);
-
         
         //TANONG MO KAY SIR BAKIT AYAW TONG GUMANA. KAINIS MUCH
 
@@ -116,6 +111,8 @@ class CategoryController extends Controller
 
         $category = new Category;
 
+        $category->name = $request->category_name;
+        $category->description = $request->category_description;
 
         $category->save();
 

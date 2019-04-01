@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\RegistryTool;
+use App\Category;
+use DB;
+use App\Quotation;
 
 class HomeController extends Controller
 {
@@ -23,6 +27,26 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+       return view('home');
+    }
+
+    public function search(Request $request)
+    {  
+        $find = $request->search;
+        $categories = DB::table('categories')->where('name','LIKE','%' . $find . '%')->get(); 
+        if(count($categories) == 0)
+        {
+            $registry = DB::table('registry_tools')->where('asset_name','LIKE','%' . $find . '%')->get();
+
+            $result = $registry;
+
+            return view('home',compact('result'));
+        }
+        else
+        {   
+            $result = $categories;
+            return view('home',compact('result'));   
+        }
+
     }
 }

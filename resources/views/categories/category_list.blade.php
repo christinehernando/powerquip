@@ -6,6 +6,7 @@
 
 
 @section('content')
+
 <div class="container"> 
   <h1 class="text-center">Categories List</h1>
   <a href="{{ route('categories.create') }}" class="btn btn-primary float-right">

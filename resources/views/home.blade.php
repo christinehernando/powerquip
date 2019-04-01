@@ -30,7 +30,11 @@
         <div class="row justify-content-center">
             <div class="col-md-10 justify-content-center"> 
                 {{ $result }}
-               
+
+                @foreach($result as $tools)
+                    {{ $tools->name }}
+                @endforeach
+
                 @if(!empty($result->asset_name))
                    
                         sa registry tool ni gikuha

@@ -33,6 +33,7 @@ class HomeController extends Controller
     public function search(Request $request)
     {  
         $find = $request->search;
+
         $categories = DB::table('categories')->where('name','LIKE','%' . $find . '%')->get(); 
         if(count($categories) == 0)
         {

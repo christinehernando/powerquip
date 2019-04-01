@@ -98,12 +98,9 @@ class CategoryController extends Controller
         ]);
 
         return Category::create([
-            'category_name' => $request['category_name'],
-            'category_description' => $request['category_description'],
+            'name' => $request['category_name'],
+            'description' => $request['category_description'],
         ]);
-
-        $category->name = $request->category_name;
-        $category->description = $request->category_description;
 
         $category->save();
 

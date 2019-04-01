@@ -41,6 +41,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+
+    /* RELATIONSHP */
+    public function borrows()
+    {
+        return $this->hasMany('App\Borrows','user_id');
+    }
+
     public function books()
     {
         /*

@@ -102,6 +102,21 @@ class CategoryController extends Controller
             'description' => $request['category_description'],
         ]);
 
+        
+        //TANONG MO KAY SIR BAKIT AYAW TONG GUMANA. KAINIS MUCH
+
+        // return Category::create([
+        //     'name' => $request['category_name'],
+        //     'description' => $request['category_description'],
+        // ]);
+ 
+        // $category->save();
+       
+        // return redirect('/categories');
+
+        $category = new Category;
+
+
         $category->save();
 
         return redirect('/categories');
@@ -205,6 +220,7 @@ class CategoryController extends Controller
             - redirect to '/categories'
                 - return ?('?');
         */
+        dd($category);
 
         $category = Category::find($category->id);
 

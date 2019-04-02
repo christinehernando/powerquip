@@ -48,11 +48,13 @@ class RegistryToolController extends Controller
     public function store(Request $request)
     {
         //
+        $file = $request->file('registrytool_image');
+
+        $file->move('images/tools', $file->getClientOriginalName());
 
         $validatedData = $request->validate([
             'registrytool_name' => ['required', 'string'],
             'registrytool_description' => ['required', 'string'],
-            'registrytool_image' => ['required', 'string'],
             'registrytool_category' => ['required'],
         ]);
 
@@ -60,7 +62,7 @@ class RegistryToolController extends Controller
 
         $registrytool->asset_name = $request->registrytool_name;
         $registrytool->description = $request->registrytool_description;
-        $registrytool->image_path = $request->registrytool_image;
+        $registrytool->image_path = $file->getClientOriginalName();
         $registrytool->category_id = $request->registrytool_category;
 
         $registrytool->save();

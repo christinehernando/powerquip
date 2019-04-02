@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\RegistryTool;
+use App\InventoryTools;
 use App\Category;
 use DB;
 use App\Quotation;
@@ -25,29 +26,28 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-       return view('home');
-    }
+       $find = $request->input('search');
 
-    public function search(Request $request)
-    {  
-        $find = $request->search;
+        //join table resulting table will only reflect all items of the registry_tools
+        $result = DB::table('categories')
+            ->join('registry_tools','categories.id','=','registry_tools.category_id')
+            ->select('categories.*','registry_tools.*')
+            ->where('name','LIKE','%' . $find . '%')
+            ->get();
 
-        $categories = DB::table('categories')->where('name','LIKE','%' . $find . '%')->get(); 
-        if(count($categories) == 0)
-        {
-            $registry = DB::table('registry_tools')->where('asset_name','LIKE','%' . $find . '%')->get();
+        $tools = DB::table('registry_tools')
+            ->join('inventory_tools','registry_tools.id','=','inventory_tools.registry_tool_id')
+            ->select('registry_tools.*','inventory_tools.*')
+            ->get();
 
-            $result = $registry;
 
-            return view('home',compact('result'));
-        }
-        else
-        {   
-            $result = $categories;
-            return view('home',compact('result'));   
-        }
+
+       return view('home',compact('result','tools'));   
 
     }
+
 }
+
+

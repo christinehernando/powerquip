@@ -19,7 +19,7 @@
         <div class="card-header">Add Tool To Registry</div>
         
         <div class="card-body">
-          <form method="POST" action="{{ route('registrytool.store') }}">
+          <form method="POST" action="{{ route('registrytool.store') }}" enctype="multipart/form-data">
             @csrf
 
 
@@ -74,7 +74,7 @@
                 <label for="Image" class="col-md-4 col-form-label text-md-right">{{ __('Image') }}</label>
 
                 <div class="col-md-6">
-                    <input id="registrytool_image" type="text" class="form-control{{ $errors->has('registrytool_image') ? ' is-invalid' : '' }}" name="registrytool_image" value="{{ old('registrytool_image') }}" required autofocus>
+                    <input id="registrytool_image" type="file" class="form-control{{ $errors->has('registrytool_image') ? ' is-invalid' : '' }}" name="registrytool_image" value="{{ old('registrytool_image') }}" required autofocus>
 
                     @if ($errors->has('registrytool_image'))
                         <span class="invalid-feedback" role="alert">

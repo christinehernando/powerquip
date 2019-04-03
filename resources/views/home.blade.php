@@ -29,31 +29,43 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-md-10 justify-content-center"> 
-                @foreach($tools as $inventory)
-                      {{ $inventory }}
-                      <hr>                      
+                
 
-                @endforeach
-
-                @if(!count($result) == 0)
+                @if(!count($tools) == 0)
                     <div class="card-deck">
                         <div>
-                            @foreach( $result as $tool)
+                            @foreach( $tools as $tool)
+
                                 <div class="card">
-                                <img class="card-img-top" src='{{ asset("images/{$tool->image_path}") }}' alt="Card image cap">
+                                <!-- <img class="card-img-top" src='{{ asset("images/{$tool->image_path}") }}' alt="Card image cap"> -->
                                 <div class="card-body">
                                   <h5 class="card-title">{{ $tool->asset_name }}</h5>
                                   <p class="card-text">{{ $tool->description }}</p>
                                 </div>
                                 <div class="card-footer">
                                   <small class="text-muted">Last updated 3 mins ago</small>
-                                  
-                                   
+                                  <small class="text-muted">Total</small><br>
+                                  <small class="text-muted">Avail</small><br>
+                                  <button>Add</button>
+                                   @foreach( $tools as $count )
+                                        @php
+                                            $total 
+                                        @endphp
+                                        @if( $tool->id == $count->registry_tool_id )
+                                            
+                                            @if( $count->status != "reserved" && $count->status != "borrowed"   )
+                                                $available++
+                                            @else
+                                            @endif
 
+                                        @else
+                                        @endif
+                                   @endforeach
 
                                 </div>
                               </div>
                             @endforeach
+                            
                         </div>                     
                     </div>
                 @else

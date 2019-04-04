@@ -44,46 +44,43 @@ class HomeController extends Controller
             ->where('inventory_tools.status','=','functioning')
             ->get();
 
-        $tool_results = [];
+        $results = [];
+
         
         foreach($tools as $tool)
         {
             $total = 0;
-            $available = 0;
+            $available = 0;  
 
-            foreach ($counts as $count) {
-                if($count->registry_tool_id = $tool->id){
+            foreach ($counts as $count)
+            {
+                if($count->registry_tool_id == $tool->id)
+                {
                     $total++;
-                    if($count->status != "reserved" && $count->status != "borrowed"){
+
+                    if($count->status != "reserved" && $count->status != "borrowed")
+                    {
                         $available++;
-                    }
-                }
-
-            }
-
-            array_push($tool_results,$tool->id);
-            foreach($tool_results as $tool_result){
-                if($tool_result == $tool->id){
-                    array_push($tool->id,'image' => $tool->image_path)
-                    $tool_result += ['image' => $tool->image_path];    
-                    $tool_result += ['description' => $tool->description];    
-                    $tool_result += ['total' => $total];    
-                    $tool_result += ['available' => $available];    
+                    }                    
                 }
             }
+
+            if(!$available == 0)
+            {
+                $results[$tool->id] = [
+                "image" => $tool->image_path,
+                "description" => $tool->description,
+                "available" => $available,
+                "total" => $total,
+                ]; 
+            }
+             
         }
+
+        $returns = collect($results);          
         
-        $results = collect($tool_results);
-
-        dd($results);
-
-
-            
-
-       return view('home',compact('tools','counts','total','available'));   
-
+        return view('home',compact('returns'));   
     }
-
 }
 
 

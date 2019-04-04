@@ -68,6 +68,7 @@ class HomeController extends Controller
             if(!$available == 0)
             {
                 $results[$tool->id] = [
+                "name" => $tool->asset_name,
                 "image" => $tool->image_path,
                 "description" => $tool->description,
                 "available" => $available,

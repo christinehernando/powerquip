@@ -27,25 +27,22 @@
                 </form>
             </div>
         </div>
-        <div class="row justify-content-center">
-            <div class="col-md-10 justify-content-center"> 
-                
-                <div class="row">
+        <div class="row">
+            <div class="card-deck">
+                @foreach($returns as $return)
+                <div class="card">
+                    <img src="">
+                    <div class="card-body">
+                        <h5 class="card-title"> {{ $return["name"] }} </h5>
+                        <p class="card-text"> {{ $return["description"]}} </p>
+                    </div>
+                    <div class="card-footer">
+                        <p class="card-text">Available : {{ $return["available"] }} </p>
+                        <p class="card-text">Total : {{ $return["total"] }} </p>
+                    </div>
                     
                 </div>
-
-                @foreach($returns as $return)
-
-                   
-                    {{ $return["image"]}}
-                    {{ collect($return)}}
-
-
                 @endforeach
-
-<!-- SHOW WHEN BROWSE BUTTON IS CLICKED  -->
-              
-<!-- SHOW WHEN BROWSE BUTTON IS CLICKED  -->
             </div>
         </div>
     </div>

@@ -10,10 +10,10 @@
 
 
 @section('content')
-    <div class="container">
+    <div class="container mb-5">
         <div class="row justify-content-center mt-5 mb-5">
             <div class="col-md-8">
-                <form action="/home" method="GET"  >
+                <form action="/home" method="GET"  class="mt-5">
                     @csrf
                     <div class="input-group justify-content-center">
                         <input type="text" class="form-control ml-3" name="search" value="Search tools" id="search-value"> 
@@ -27,24 +27,25 @@
                 </form>
             </div>
         </div>
-        <div class="row">
-            <div class="card-deck">
-                @foreach($returns as $return)
-                <div class="card">
-                    <img src="">
-                    <div class="card-body">
-                        <h5 class="card-title"> {{ $return["name"] }} </h5>
-                        <p class="card-text"> {{ $return["description"]}} </p>
+        <div class="container">
+            <div class="row mt-5">
+                <div class="card-deck mt-5">
+                    @foreach($returns as $return)
+                    <div class="card">
+                        <img src="">
+                        <div class="card-body">
+                            <h5 class="card-title"> {{ $return["name"] }} </h5>
+                            <p class="card-text"> {{ $return["description"]}} </p>
+                        </div>
+                        <div class="card-footer">
+                            <p class="card-text">Available : {{ $return["available"] }} </p>
+                            <p class="card-text">Total : {{ $return["total"] }} </p>
+                        </div>                        
                     </div>
-                    <div class="card-footer">
-                        <p class="card-text">Available : {{ $return["available"] }} </p>
-                        <p class="card-text">Total : {{ $return["total"] }} </p>
-                    </div>
-                    
+                    @endforeach
                 </div>
-                @endforeach
             </div>
-        </div>
+        </div>      
     </div>
 	
 @endsection

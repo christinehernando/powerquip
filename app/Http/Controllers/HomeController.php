@@ -37,11 +37,14 @@ class HomeController extends Controller
             ->where('name','LIKE','%' . $find . '%')
             ->get();
 
-        $tools = DB::table('registry_tools')
-            ->join('inventory_tools','registry_tools.id','=','inventory_tools.registry_tool_id')
-            ->select('registry_tools.*','inventory_tools.*')
+        $tools = DB::table('inventory_tools')
+            ->join('registry_tools','inventory_tools.id','=','inventory_tools.registry_tool_id')
+            ->select('inventory_tools.*','registry_tools.*')
             ->get();
 
+        $test = InventoryTools::select('tool_serial')->distinct()->get();
+
+        
 
 
        return view('home',compact('result','tools'));   

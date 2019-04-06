@@ -29,11 +29,12 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-md-10 justify-content-center"> 
-                @foreach($tools as $inventory)
-                      {{ $inventory }}
+                
+                      {{ $test }}
                       <hr>                      
 
-                @endforeach
+
+                
 
                 @if(!count($result) == 0)
                     <div class="card-deck">
@@ -47,6 +48,7 @@
                                 </div>
                                 <div class="card-footer">
                                   <small class="text-muted">Last updated 3 mins ago</small>
+                                    
                                   
                                    
 

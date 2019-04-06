@@ -31,26 +31,58 @@ class HomeController extends Controller
        $find = $request->input('search');
 
         //join table resulting table will only reflect all items of the registry_tools
-        $result = DB::table('categories')
+        $tools = DB::table('categories')
             ->join('registry_tools','categories.id','=','registry_tools.category_id')
             ->select('categories.*','registry_tools.*')
             ->where('name','LIKE','%' . $find . '%')
             ->get();
 
-        $tools = DB::table('inventory_tools')
-            ->join('registry_tools','inventory_tools.id','=','inventory_tools.registry_tool_id')
-            ->select('inventory_tools.*','registry_tools.*')
+
+        $counts = DB::table('inventory_tools')
+            ->join('registry_tools','inventory_tools.registry_tool_id','=','registry_tools.id')
+            ->leftJoin('borrows__inventory_tools','inventory_tools.id','=','borrows__inventory_tools.inventory_tool_id')
+            ->select('inventory_tools.*','registry_tools.*','borrows__inventory_tools.*')
+            ->where('inventory_tools.status','=','functioning')
             ->get();
 
-        $test = InventoryTools::select('tool_serial')->distinct()->get();
-
+        $results = [];
         
+        foreach($tools as $tool)
+        {
+            $total = 0;
+            $available = 0;  
 
+            foreach ($counts as $count)
+            {
+                if($count->registry_tool_id == $tool->id)
+                {
+                    $total++;
 
-       return view('home',compact('result','tools'));   
+                    if($count->status != "reserved" && $count->status != "borrowed")
+                    {
+                        $available++;
+                    }                    
+                }
+            }
 
+            if(!$available == 0)
+            {
+                $results[$tool->id] = [
+                "id" => $tool->id,
+                "name" => $tool->asset_name,
+                "image" => $tool->image_path,
+                "description" => $tool->description,
+                "available" => $available,
+                "total" => $total,
+                ]; 
+            }
+             
+        }
+
+        $returns = collect($results);          
+        
+        return view('home',compact('returns'));   
     }
-
 }
 
 

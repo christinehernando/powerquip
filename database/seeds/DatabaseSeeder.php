@@ -18,5 +18,10 @@ class DatabaseSeeder extends Seeder
             - use $this' call method to run the CategoriesTableSeeder class
                 - $this->?(?::?); 
         */
+
+            $this->call(InventoryToolsTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        $this->call(RegistryToolsTableSeeder::class);
+        $this->call(CategoriesTableSeeder::class);
     }
 }

@@ -10,10 +10,10 @@
 
 
 @section('content')
-    <div class="container">
+    <div class="container mb-5">
         <div class="row justify-content-center mt-5 mb-5">
             <div class="col-md-8">
-                <form action="/home" method="GET"  >
+                <form action="/home" method="GET"  class="mt-5">
                     @csrf
                     <div class="input-group justify-content-center">
                         <input type="text" class="form-control ml-3" name="search" value="Search tools" id="search-value"> 
@@ -27,46 +27,27 @@
                 </form>
             </div>
         </div>
-        <div class="row justify-content-center">
-            <div class="col-md-10 justify-content-center"> 
-                
-                      {{ $test }}
-                      <hr>                      
 
+        <div class="container">
+            <div class="row mt-5">
+                <div class="card-deck mt-5">
+                    @foreach($returns as $return)
+                    <div class="card">
+                        <img src="">
+                        <div class="card-body">
+                            <h5 class="card-title"> {{ $return["name"] }} </h5>
+                            <p class="card-text"> {{ $return["description"]}} </p>
+                        </div>
+                        <div class="card-footer">
+                            <p class="card-text">Available : {{ $return["available"] }} </p>
+                            <p class="card-text">Total : {{ $return["total"] }} </p>
+                        </div>                        
 
-                
-
-                @if(!count($result) == 0)
-                    <div class="card-deck">
-                        <div>
-                            @foreach( $result as $tool)
-                                <div class="card">
-                                <img class="card-img-top" src='{{ asset("images/{$tool->image_path}") }}' alt="Card image cap">
-                                <div class="card-body">
-                                  <h5 class="card-title">{{ $tool->asset_name }}</h5>
-                                  <p class="card-text">{{ $tool->description }}</p>
-                                </div>
-                                <div class="card-footer">
-                                  <small class="text-muted">Last updated 3 mins ago</small>
-                                    
-                                  
-                                   
-
-
-                                </div>
-                              </div>
-                            @endforeach
-                        </div>                     
                     </div>
-                @else
-                    no result. provide browse button
-                @endif
-                
-<!-- SHOW WHEN BROWSE BUTTON IS CLICKED  -->
-              
-<!-- SHOW WHEN BROWSE BUTTON IS CLICKED  -->
+                    @endforeach
+                </div>
             </div>
-        </div>
+        </div>      
     </div>
 	
 @endsection

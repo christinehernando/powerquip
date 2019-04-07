@@ -102,6 +102,9 @@
                                 <li class="nav-item">
                                    <a class="nav-link" href="">Account</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="">Cart {{collect(Session::get('cart'))->sum()}} </a>
+                                </li>
 
                             @endif
                             <li class="nav-item dropdown">

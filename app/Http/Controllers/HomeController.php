@@ -8,6 +8,7 @@ use App\InventoryTools;
 use App\Category;
 use DB;
 use Session;
+use App\Staging;
 use App\Quotation;
 
 class HomeController extends Controller
@@ -48,6 +49,8 @@ class HomeController extends Controller
             ->where('inventory_tools.status','=','functioning')
             ->get();
 
+        $stage = Staging::all();
+
         $results = [];
         
         foreach($tools as $tool)
@@ -63,8 +66,18 @@ class HomeController extends Controller
 
                     if($count->status != "reserved" && $count->status != "borrowed")
                     {
+                        if($stage->containsStrict('tool_serial',$count->tool_serial))
+                        {
+
+                        } 
+
+                        else
+                        {
+                            $available++;
+                        }
+
                         //insert another checking if the tool serial is in session cart 
-                        $available++;
+                        
                     }                    
                 }
             }
@@ -85,10 +98,8 @@ class HomeController extends Controller
 
         $returns = collect($results);   
 
-        $cart = Session::get('cart');  
 
-        dd(Session::all());     
-        
+
         return view('home',compact('returns'));   
     }
 }

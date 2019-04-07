@@ -54,7 +54,7 @@ class CartController extends Controller
         		{
                     if($stage->containsStrict('tool_serial',$count->tool_serial) || $found > 0 )
                     {
-                        $found = 300;
+                        $found = 0;
                     }
                     else
                     {
@@ -66,16 +66,35 @@ class CartController extends Controller
 
                         $addtostaging->save();
 
-                        $cart = Session::get('cart');
+                        $cart = session()->get('cart');
 
-                        if(array_key_exists($count->tool_serial, $cart)){
-                            $cart = 0;
-                        } else {
-                            $cart[$count->tool_serial] = 1;
+                        // if cart is empty then this the first product
+                        if(!$cart) {
+                 
+                            $cart = [ $count->tool_serial => 1 ];
+                 
+                            session()->put('cart', $cart);
+                 
+                            return redirect('/home');
                         }
 
-                        Session::put('cart', $cart);
+                        // if cart not empty then check if this product exist then increment quantity
+                        if(isset($cart[$count->tool_serial])) {
 
+                            $cart[$count->tool_serial] = 1;
+
+                            session()->put('cart', $cart);
+
+                            return redirect('/home');
+
+                        }
+
+                         // if item not exist in cart then add to cart with quantity = 1
+                        $cart[$count->tool_serial] = 1;
+
+                        session()->put('cart', $cart);
+
+                        return redirect('/home');
 
 
 
@@ -87,7 +106,7 @@ class CartController extends Controller
         	}
         }
 
-        dd($cart);
+        
          
        
     	//when one item is found put in a session cart [tool_serial, user]
@@ -98,16 +117,6 @@ class CartController extends Controller
         
                  
 
-
-        
-
-        if(array_key_exists($find, $cart)) {
-            $cart[$find] += (int)$request->quantity; 
-        } else {
-            $cart[$find] = (int)$request->quantity;
-        }
- 
-        Session::put('cart', $cart);
 
         
         

@@ -71,7 +71,16 @@ class CartController extends Controller
                         // if cart is empty then this the first product
                         if(!$cart) {
                  
-                            $cart = [ $count->tool_serial => 1 ];
+                            $cart = [ 
+                                    $count->tool_serial => [
+                                        "name" => $tool->asset_name,
+                                        "serial"=>$count->tool_serial,
+                                        "category"=>$tool->name,
+                                        "image"=>$tool->image_path,
+                                        "quantity" => 1
+                                    ] 
+
+                            ];
                  
                             session()->put('cart', $cart);
                  
@@ -81,7 +90,13 @@ class CartController extends Controller
                         // if cart not empty then check if this product exist then increment quantity
                         if(isset($cart[$count->tool_serial])) {
 
-                            $cart[$count->tool_serial] = 1;
+                            $cart[$count->tool_serial] = [
+                                        "name" => $tool->asset_name,
+                                        "serial"=>$count->tool_serial,
+                                        "category"=>$tool->name,
+                                        "image"=>$tool->image_path,
+                                        "quantity" => 1
+                            ];
 
                             session()->put('cart', $cart);
 
@@ -90,7 +105,13 @@ class CartController extends Controller
                         }
 
                          // if item not exist in cart then add to cart with quantity = 1
-                        $cart[$count->tool_serial] = 1;
+                       $cart[$count->tool_serial] = [
+                                        "name" => $tool->asset_name,
+                                        "serial"=>$count->tool_serial,
+                                        "category"=>$tool->name,
+                                        "image"=>$tool->image_path,
+                                        "quantity" => 1
+                            ];
 
                         session()->put('cart', $cart);
 

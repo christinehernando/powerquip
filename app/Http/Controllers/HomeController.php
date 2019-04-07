@@ -98,7 +98,7 @@ class HomeController extends Controller
 
         $returns = collect($results);   
 
-
+        
 
         return view('home',compact('returns'));   
     }

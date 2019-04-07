@@ -103,7 +103,7 @@
                                    <a class="nav-link" href="">Account</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="">Cart {{collect(Session::get('cart'))->sum()}} </a>
+                                    <a class="nav-link" href="">Cart {{collect(Session::get('cart'))->count()}} </a>
                                 </li>
 
                             @endif

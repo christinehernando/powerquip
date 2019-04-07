@@ -8,19 +8,45 @@
     <div class="container">
 	    <div>
 	    	<h4 class="mt-4">Cart List</h4>
-	    	<table class="table table-bordered table-striped text-center m-50">
+	    	<table class="table table-bordered table-striped m-50">
 	    		<thead>
-	    			<tr>No</tr>
-	    			<tr>Name</tr>
-	    			<tr>Serial</tr>
-	    			<tr>Category</tr>
-	    			<tr></tr>
+	    			<tr>
+	    				<th>No</th>
+	    				<th>Name</th>
+	    				<th>Serial</th>
+	    				<th>Category</th>
+	    				<th></th>
+	    			</tr>
 	    		</thead>
 	    		<tbody>
-	    			@foreach($cart as $item)
+
+	    			@forelse($cart as $index => $item)
+	    				<tr>
+	    					<td> {{ ++$counter }} </td>
+	    					<td> {{ $item['name']  }} </td>
+	    					<td>  {{ $item['serial']}} </td>
+	    					<td>  {{ $item['category']}} </td>
+	    					<td>
+	    						<button class="btn btn-primary">
+	    							<i class="fas fa-plus"></i>
+	    						</button>
+	    						<button class="btn btn-danger">
+	    							<i class="fas fa-trash"></i>
+	    						</button>
+	    					</td>
+	    				</tr>
+	    			@empty
+	    				<tr>
+							<td colspan="5" class="text-center"> No tools to show.</td>
+						</tr>
+
+	    			@endforelse
 	    		</tbody>
 	    		
-	    	</table>	
+	    	</table>
+	    	<a href="/borrows" method="GET">
+	    		<button class="btn btn-success">Submit Request</button>
+	    	</a>	
 	    </div>
                 
     </div>

@@ -15,6 +15,15 @@ class CartController extends Controller
 {
     //
 
+    public function index () 
+    {
+         $cart = session()->get('cart');
+
+         $counter = 0;
+
+         return view('accounts.account',compact('cart','counter'));  
+    }
+
     public function store(Request $request, $registry_tool_id)
     {
         
@@ -32,15 +41,17 @@ class CartController extends Controller
         $counts = DB::table('inventory_tools')
             ->join('registry_tools','inventory_tools.registry_tool_id','=','registry_tools.id')
             ->leftJoin('borrows__inventory_tools','inventory_tools.id','=','borrows__inventory_tools.inventory_tool_id')
-            ->select('inventory_tools.*','registry_tools.*','borrows__inventory_tools.*')
+            ->select('inventory_tools.id','inventory_tools.*','registry_tools.*','borrows__inventory_tools.*')
             ->where('inventory_tools.status','=','functioning')
             ->get();
    
       
         $stage = Staging::all();
 
-        
+        $cart = session()->get('cart');
 
+        
+        dd($counts);
 
        	//loop thru until we have one item that matches the registrytool_id 
 
@@ -77,7 +88,8 @@ class CartController extends Controller
                                         "serial"=>$count->tool_serial,
                                         "category"=>$tool->name,
                                         "image"=>$tool->image_path,
-                                        "quantity" => 1
+                                        "quantity" => 1,
+                                        "inventory_tool_id" => $count->id
                                     ] 
 
                             ];
@@ -95,7 +107,8 @@ class CartController extends Controller
                                         "serial"=>$count->tool_serial,
                                         "category"=>$tool->name,
                                         "image"=>$tool->image_path,
-                                        "quantity" => 1
+                                        "quantity" => 1,
+                                        "inventory_tool_id" => $count->id
                             ];
 
                             session()->put('cart', $cart);
@@ -110,7 +123,8 @@ class CartController extends Controller
                                         "serial"=>$count->tool_serial,
                                         "category"=>$tool->name,
                                         "image"=>$tool->image_path,
-                                        "quantity" => 1
+                                        "quantity" => 1,
+                                        "inventory_tool_id" => $count->id
                             ];
 
                         session()->put('cart', $cart);
@@ -127,21 +141,5 @@ class CartController extends Controller
         	}
         }
 
-        
-         
-       
-    	//when one item is found put in a session cart [tool_serial, user]
-
-
-    	//return back
-
-        
-                 
-
-
-        
-        
-        // return redirect ('/catalogue');
-        
     }
 }

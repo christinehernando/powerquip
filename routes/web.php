@@ -69,6 +69,10 @@ Route::resource('/categories', 'CategoryController');
 		- Route::?('?', '?');
 */
 
+// Route::resource('/borrows','BorrowsController');
+Route::post('/borrows', 'BorrowsController@store');
+Route::get('/borrows', 'BorrowsController@store');
+
 
 /*
 	- register a resourceful route that will use the corresponding methods of UserController when HTTP requests are made to the '/users' URI
@@ -101,3 +105,4 @@ Route::patch('/users/{id}/approve', 'UserController@approve');
 */
 
 Route::post('/cart/{id}', 'CartController@store');
+Route::get('/cart', 'CartController@index')->name('cart');

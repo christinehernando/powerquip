@@ -4,9 +4,9 @@
     Home
 @endsection
 
-<!-- {--
+<!-- {
     At a minimum, this view should have a search bar to find particular titles and a "Browse" button that will bring the user to the catalogue of books on offer. 
-    --} -->
+    } -->
 
 
 @section('content')
@@ -41,7 +41,12 @@
                         <div class="card-footer">
                             <p class="card-text">Available : {{ $return["available"] }} </p>
                             <p class="card-text">Total : {{ $return["total"] }} </p>
-                        </div>                        
+                        </div> 
+                        <form action="/cart/{{ $return['id']}}" method="POST">
+                            @csrf
+                           <!--  <input type="number" name="quantity" value="1"> -->
+                            <button class="card-text btn btn-primary btn-block mt-2"> <i class="fas fa-cart-plus"></i> </button>
+                        </form>                       
 
                     </div>
                     @endforeach

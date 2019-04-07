@@ -99,3 +99,5 @@ Route::patch('/users/{id}/approve', 'UserController@approve');
 		- Route::?('?', '?');
 
 */
+
+Route::post('/cart/{id}', 'CartController@store');

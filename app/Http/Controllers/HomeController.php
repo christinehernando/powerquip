@@ -7,6 +7,7 @@ use App\RegistryTool;
 use App\InventoryTools;
 use App\Category;
 use DB;
+use Session;
 use App\Quotation;
 
 class HomeController extends Controller
@@ -38,6 +39,8 @@ class HomeController extends Controller
             ->get();
 
 
+
+
         $counts = DB::table('inventory_tools')
             ->join('registry_tools','inventory_tools.registry_tool_id','=','registry_tools.id')
             ->leftJoin('borrows__inventory_tools','inventory_tools.id','=','borrows__inventory_tools.inventory_tool_id')
@@ -60,6 +63,7 @@ class HomeController extends Controller
 
                     if($count->status != "reserved" && $count->status != "borrowed")
                     {
+                        //insert another checking if the tool serial is in session cart 
                         $available++;
                     }                    
                 }
@@ -79,7 +83,11 @@ class HomeController extends Controller
              
         }
 
-        $returns = collect($results);          
+        $returns = collect($results);   
+
+        $cart = Session::get('cart');  
+
+        dd(Session::all());     
         
         return view('home',compact('returns'));   
     }

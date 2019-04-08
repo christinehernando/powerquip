@@ -13,6 +13,15 @@ use App\User;
 
 class BorrowsController extends Controller
 {
+    public function __construct()
+    {
+        /*
+            - add a middleware with an argument of 'is.admin'
+                - $this->?('?');
+        */
+        $this->middleware('is.admin');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -21,10 +30,13 @@ class BorrowsController extends Controller
     public function index()
     {
         //
-        $borrows = Borrows::all();
+        $forApproval = Borrows::where('status',"reserved")->get();
+        $forDelivery = Borrows::where('status',"approved")->get();
+        $forReturn = Borrows::where('status',"delivered")->get();
+        $return = Borrows::where('status',"returned")->get();
         $detail = Borrows_InventoryTools::with('borrows');
 
-        return view ('admin',compact('borrows','detail'));
+        return view ('admin',compact('forApproval','forDelivery','forReturn','return','detail'));
     }
 
     /**
@@ -162,5 +174,50 @@ class BorrowsController extends Controller
     public function destroy(Borrows $borrows)
     {
         //
+    }
+
+    public function approve($id)
+    {
+        //update status of borrows table
+        $borrow = Borrows::find($id);
+
+        $borrow->status = "approved";
+
+        $borrow->save();
+
+        //push status of details of borrows to borrows_inventory
+        $details = Borrows_InventoryTools::where('borrow_id', $borrow->id)->get();
+
+        foreach ($details as $index => $tool) {
+            $detail = Borrows_InventoryTools::find($tool->id);
+            $detail->status = "approved";
+            $detail->save();
+        }
+
+        
+
+        return back();
+    }
+
+    
+
+    public function return($id)
+    {
+        $borrow = Borrows::find($id);
+
+        $borrow->status = "returned";
+
+        $borrow->save();
+
+        //push status of details of borrows to borrows_inventory
+        $details = Borrows_InventoryTools::where('borrow_id', $borrow->id)->get();
+
+        foreach ($details as $index => $tool) {
+            $detail = Borrows_InventoryTools::find($tool->id);
+            $detail->status = "returned";
+            $detail->save();
+        }
+
+        return back();
     }
 }

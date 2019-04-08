@@ -78,7 +78,7 @@
                                     <a class="nav-link" href="{{ route('users.index') }}">{{ __('Users') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('inventorytools.index') }}">{{ __('Tools') }}</a>
+                                    <a class="nav-link" href="/admin">{{ __('Tasks') }}</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -100,7 +100,7 @@
                             @else
                       <!-- Link should ultimately route to the account dashboard that would list all existing borrowed items -->
                                 <li class="nav-item">
-                                   <a class="nav-link" href="">Account</a>
+                                   <a class="nav-link" href="/account">Account</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="">Cart {{collect(Session::get('cart'))->count()}} </a>

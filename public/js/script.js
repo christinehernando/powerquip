@@ -16,3 +16,10 @@ document.querySelectorAll('.inventorytools-btn').forEach(function(btn){
 		
 	});
 });
+
+
+document.querySelectorAll('.borrow-approve').forEach(function(btn){
+    btn.addEventListener('click', function(){
+        
+    })
+})

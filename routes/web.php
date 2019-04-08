@@ -73,10 +73,15 @@ Route::resource('/categories', 'CategoryController');
 Route::post('/borrows', 'BorrowsController@store');
 Route::get('/borrows', 'BorrowsController@store');
 Route::get('/admin', 'BorrowsController@index');
+Route::get('/admin/{id}/approve', 'BorrowsController@approve');
+Route::get('/admin/{id}/return', 'BorrowsController@return');
 
+Route::get('/account','CgeController@index');
+Route::get('/account/{$id}/deliver','UserDashboardController@deliver');
 
 
 /*
+
 	- register a resourceful route that will use the corresponding methods of UserController when HTTP requests are made to the '/users' URI
 		- Route::?('?', '?');
 */

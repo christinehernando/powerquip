@@ -11,13 +11,13 @@ class Borrows extends Model
     use SoftDeletes;
 
     /* RELATIONSHP */
-    public function users()
+    public function user()
     {
-    	return $this->belongsTo('App\Users');
+    	return $this->belongsTo('App\User');
     }
 
-    public function borrows_inventorytools()
+    public function inventory_tools()
     {
-        return $this->hasMany('App\Borrows_InventoryTools','inventory_tool_id');
+        return $this->hasMany('App\Borrows_InventoryTools', 'borrow_id');
     }
 }

@@ -15,13 +15,14 @@ class Borrows_InventoryTools extends Model
 
 	public function inventorytools()
 	{
-		return $this->belongsTo('App\InventoryTools');
+		return $this->belongsTo('App\InventoryTools','inventory_tool_id');
 	}
 
 	public function borrows()
 	{
 		return $this->belongsTo('App\Borrows');
 	}
+
 
 
 }

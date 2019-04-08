@@ -28,4 +28,9 @@ class InventoryTools extends Model
     {
         return $this->hasMany('App\Borrows_InventoryTools','inventory_tool_id');
     }
+
+     public function Stagings()
+    {
+        return $this->belongsTo('App\Stagings','inventory_tool_id');
+    }
 }

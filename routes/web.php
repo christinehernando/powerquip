@@ -72,6 +72,8 @@ Route::resource('/categories', 'CategoryController');
 // Route::resource('/borrows','BorrowsController');
 Route::post('/borrows', 'BorrowsController@store');
 Route::get('/borrows', 'BorrowsController@store');
+Route::get('/admin', 'BorrowsController@index');
+
 
 
 /*

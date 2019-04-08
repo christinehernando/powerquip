@@ -7,7 +7,7 @@ use Session;
 use App\RegistryTool;
 use App\InventoryTools;
 use App\Category;
-use App\Staging;
+use App\Stagings;
 use DB;
 
 
@@ -41,17 +41,18 @@ class CartController extends Controller
         $counts = DB::table('inventory_tools')
             ->join('registry_tools','inventory_tools.registry_tool_id','=','registry_tools.id')
             ->leftJoin('borrows__inventory_tools','inventory_tools.id','=','borrows__inventory_tools.inventory_tool_id')
-            ->select('inventory_tools.id','inventory_tools.*','registry_tools.*','borrows__inventory_tools.*')
+            ->select('inventory_tools.*','registry_tools.*','borrows__inventory_tools.*')
             ->where('inventory_tools.status','=','functioning')
             ->get();
-   
-      
-        $stage = Staging::all();
+
+        $stage = Stagings::all();
 
         $cart = session()->get('cart');
 
+        $inventory_tools = InventoryTools::all();
+
         
-        dd($counts);
+        
 
        	//loop thru until we have one item that matches the registrytool_id 
 
@@ -70,10 +71,17 @@ class CartController extends Controller
                     else
                     {
                         $found = 1;
-                        $addtostaging = new Staging;
+                        $addtostaging = new Stagings;
+
+                        foreach($inventory_tools as $inventory_tool) {
+                            if($inventory_tool->tool_serial == $count->tool_serial){
+                                $tool_id = $inventory_tool->id; 
+                            }
+                        }
 
                         $addtostaging->tool_serial = $count->tool_serial;
-                        $addtostaging->inCart = "yes";
+                        $addtostaging->inventory_tool_id = $tool_id;
+                        $addtostaging->status = "in cart";
 
                         $addtostaging->save();
 
@@ -89,7 +97,7 @@ class CartController extends Controller
                                         "category"=>$tool->name,
                                         "image"=>$tool->image_path,
                                         "quantity" => 1,
-                                        "inventory_tool_id" => $count->id
+                                        "inventory_tool_id" => $tool_id
                                     ] 
 
                             ];
@@ -108,7 +116,7 @@ class CartController extends Controller
                                         "category"=>$tool->name,
                                         "image"=>$tool->image_path,
                                         "quantity" => 1,
-                                        "inventory_tool_id" => $count->id
+                                        "inventory_tool_id" => $tool_id
                             ];
 
                             session()->put('cart', $cart);
@@ -124,7 +132,7 @@ class CartController extends Controller
                                         "category"=>$tool->name,
                                         "image"=>$tool->image_path,
                                         "quantity" => 1,
-                                        "inventory_tool_id" => $count->id
+                                        "inventory_tool_id" => $tool_id
                             ];
 
                         session()->put('cart', $cart);

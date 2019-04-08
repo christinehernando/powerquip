@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 use Session;
 use App\Borrows_InventoryTools;
+use App\InventoryTools;
+use App\Stagings;
+use App\User;
 
 class BorrowsController extends Controller
 {
@@ -18,6 +21,10 @@ class BorrowsController extends Controller
     public function index()
     {
         //
+        $borrows = Borrows::all();
+        $detail = Borrows_InventoryTools::with('borrows');
+
+        return view ('admin',compact('borrows','detail'));
     }
 
     /**
@@ -82,23 +89,32 @@ class BorrowsController extends Controller
 
         $borrow_id = Borrows::where('transaction_code',$transaction_code)->first();
 
-        //populate the borrows__inventory tools table
+        //populate the borrows__inventory tools table and delete items in staging 
+        $stage = Stagings::all();
+
         foreach ($cart as $key => $item) {
+
             $borrow_details = new Borrows_InventoryTools;
 
-            $borrow_details->inventory_tool_id = $item['serial'];
+            $borrow_details->inventory_tool_id = $item['inventory_tool_id'];
             $borrow_details->borrow_id = $borrow_id->id;
             $borrow_details->status = "reserved";
 
             $borrow_details->save();
 
+            foreach($stage as $tool){
+                if($tool->tool_serial == $item['serial']){
+                    $tool->delete();
+                }
+            }
+
         }
 
         //empty out session cart
-        unset($cart);
+        session()->forget('cart');
 
         //redirect to accounts blade
-        dd("nakarating");
+        
         return redirect('/cart');
 
     }

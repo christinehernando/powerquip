@@ -80,7 +80,8 @@ Route::get('/admin/{id}/approve', 'BorrowsController@approve');
 Route::get('/admin/{id}/return', 'BorrowsController@return');
 
 Route::get('/account','CgeController@index');
-Route::get('/account/{$id}','CgeController@deliver');
+Route::get('/account/{id}','CgeController@deliver');
+Route::get('/return/{id}','CgeController@return');
 Route::get('/borrows/account','CgeController@store');
 
 

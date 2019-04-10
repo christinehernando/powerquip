@@ -105,7 +105,7 @@ class CgeController extends Controller
 
     public function deliver($id)
     {
-        dd("nakakarating");
+        
         $borrow = Borrows::find($id);
 
         $borrow->status = "delivered";
@@ -118,6 +118,27 @@ class CgeController extends Controller
         foreach ($details as $index => $tool) {
             $detail = Borrows_InventoryTools::find($tool->id);
             $detail->status = "delivered";
+            $detail->save();
+        }
+
+        return redirect('/account');
+    }
+
+     public function return($id)
+    {
+        
+        $borrow = Borrows::find($id);
+
+        $borrow->status = "returned";
+
+        $borrow->save();
+
+        //push status of details of borrows to borrows_inventory
+        $details = Borrows_InventoryTools::where('borrow_id', $borrow->id)->get();
+
+        foreach ($details as $index => $tool) {
+            $detail = Borrows_InventoryTools::find($tool->id);
+            $detail->status = "returned";
             $detail->save();
         }
 

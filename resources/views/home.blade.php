@@ -37,7 +37,7 @@
                         @endphp
                     <div class="card mb-5 mt-5 mr-2" style="width: 18rem; height: auto">
                         <div class="justify-content-center">
-                           <img src='{{ asset("images/tools/{$image}")}}' class="card-img-top" style="width: 150px; height: 270px; align-content: center;"> 
+                           <img src='{{ asset("images/tools/{$image}")}}' class="card-img-top py-2 m-auto" style="width: 270px; height: 270px; align-content: center;"> 
                         </div> 
                         <div class="card-body">
                             <h5 class="card-title"> {{ $return["name"] }} </h5>

@@ -79,7 +79,7 @@
 			                <label for="Image" class="col-md-4 col-form-label text-md-right">{{ __('Image') }}</label>
 
 			                <div class="col-md-6">
-			                    <input id="edit_registrytool_image" type="text" class="form-control{{ $errors->has('registrytool_image') ? ' is-invalid' : '' }}" name="registrytool_image" value="{{ old('registrytool_image') }}" required autofocus>
+			                    <input id="edit_registrytool_image" type="text" class="form-control{{ $errors->has('registrytool_image') ? ' is-invalid' : '' }}" name="registrytool_image" value="{{ $registrytool->image_path  }}" required autofocus>
 
 			                    @if ($errors->has('registrytool_image'))
 			                        <span class="invalid-feedback" role="alert">

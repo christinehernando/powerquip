@@ -11,6 +11,7 @@ use App\Stagings;
 class CgeController extends Controller
 {
     //
+    
 
     public function index()
     {
@@ -99,6 +100,27 @@ class CgeController extends Controller
 
         //redirect to accounts blade
         
+        return redirect('/account');
+    }
+
+    public function deliver($id)
+    {
+        dd("nakakarating");
+        $borrow = Borrows::find($id);
+
+        $borrow->status = "delivered";
+
+        $borrow->save();
+
+        //push status of details of borrows to borrows_inventory
+        $details = Borrows_InventoryTools::where('borrow_id', $borrow->id)->get();
+
+        foreach ($details as $index => $tool) {
+            $detail = Borrows_InventoryTools::find($tool->id);
+            $detail->status = "delivered";
+            $detail->save();
+        }
+
         return redirect('/account');
     }
 

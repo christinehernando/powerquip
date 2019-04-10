@@ -11,6 +11,9 @@
 |
 */
 
+Route::get('/borrows/{$id}/deliver','CgeController@deliver')->name('pa_add');
+Route::get('ahh/{$id}','CgeController@deliver');
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -77,7 +80,7 @@ Route::get('/admin/{id}/approve', 'BorrowsController@approve');
 Route::get('/admin/{id}/return', 'BorrowsController@return');
 
 Route::get('/account','CgeController@index');
-Route::get('/account/{$id}/deliver','UserDashboardController@deliver');
+Route::get('/account/{$id}','CgeController@deliver');
 Route::get('/borrows/account','CgeController@store');
 
 

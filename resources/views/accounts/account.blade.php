@@ -172,7 +172,10 @@
 							</table>
   						</div>
   						<div class="card-footer">
-	    						<a href="/account/{{ $borrow->id }}/deliver">
+  						<a href="account/{{$borrow->id}}" method="GET">
+				    		<button type="button" class="btn btn-success btn-block">Picked up in good order.</button>
+				    	</a>
+	    						<a href="/cge/{{ $borrow->id}}/deliver" Method="GET">
 	    							<button class="btn btn-success btn-block">Picked up in good order.</button>
 	    						</a>
   						</div>

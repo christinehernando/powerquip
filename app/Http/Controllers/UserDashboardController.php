@@ -37,23 +37,5 @@ class UserDashboardController extends Controller
         return view ('accounts.account',compact('cart','counter','forApproval','forDelivery','forReturn','return','detail'));
     }
     
-     public function deliver($id)
-    {
-        $borrow = Borrows::find($id);
-
-        $borrow->status = "delivered";
-
-        $borrow->save();
-
-        //push status of details of borrows to borrows_inventory
-        $details = Borrows_InventoryTools::where('borrow_id', $borrow->id)->get();
-
-        foreach ($details as $index => $tool) {
-            $detail = Borrows_InventoryTools::find($tool->id);
-            $detail->status = "delivered";
-            $detail->save();
-        }
-
-        return back();
-    }
+     
 }

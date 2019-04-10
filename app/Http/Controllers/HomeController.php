@@ -8,7 +8,7 @@ use App\InventoryTools;
 use App\Category;
 use DB;
 use Session;
-use App\Staging;
+use App\Stagings;
 use App\Quotation;
 
 class HomeController extends Controller
@@ -49,7 +49,7 @@ class HomeController extends Controller
             ->where('inventory_tools.status','=','functioning')
             ->get();
 
-        $stage = Staging::all();
+        $stage = Stagings::all();
 
         $results = [];
         

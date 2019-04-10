@@ -13,7 +13,15 @@ function readURL(input) {
 
 document.querySelectorAll('.inventorytools-btn').forEach(function(btn){
 	btn.addEventListener('click',function(){
-		
+        document.getElementById('inventorytool_name').innerHTML = this.parentElement.parentElement.parentElement.parentElement.previousElementSibling.previousElementSibling.textContent;
+		document.getElementById('inventorytools_update').innerHTML = this.parentElement.previousElementSibling.previousElementSibling.textContent;
+        document.getElementById('inventorytools_update_from').innerHTML = this.parentElement.previousElementSibling.textContent;
+       let tool_id = this.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.textContent;
+        document.getElementById('howmygash').action = "/inventorytools/"+tool_id;
+
+
+        
+
 	});
 });
 

@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="container">
-	<h1 class="text-center">Tools Inventory</h1>
+	<h1 class="text-center mb-4">Tools Inventory</h1>
 	
 
 	@forelse ($registryTools as $inventoryTools)
@@ -33,10 +33,11 @@
 				@forelse ($inventoryTools->inventorytools as $index => $tool)
 
 					<tr>
-						<td class="text-center"> {{ ++$index }} </td>
-						<td> {{ $tool->tool_serial }} </td>
-						<td> {{ $tool->status }}  </td>
-						<td> <button type="button" class="inventorytools-btn btn btn-primary float-right" data-toggle="modal" data-target="#updateInventoryToolStatus"><i class="fas fa-edit"> </i></button> </td>
+						<td class="text-center"> {{ ++$index }}</td>
+						<td hidden> {{{ $tool->id}}} </td>
+						<td> {{ $tool->tool_serial }}</td>
+						<td> {{ ucfirst($tool->status) }}</td>
+						<td><button type="button" class="inventorytools-btn btn btn-primary float-right" data-toggle="modal" data-target="#updateInventoryToolStatus"><i class="fas fa-edit"> </i></button> </td>
 
 					</tr>
 				@empty
@@ -47,7 +48,7 @@
 				
 			</tbody>
 		</table>	
-		<hr>
+		<hr class="mb-5">
 		@endif
 		
 	@empty
@@ -59,21 +60,20 @@
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title text-center" id="exampleModalCenterTitle">Update Status of Tool Inventory</h5>
+	        <h5 class="modal-title text-center" id="exampleModalCenterTitle"><span id="inventorytool_name"> </span></h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
-	      <div class="modal-body">
-	        Change status of <span id="inventorytools_update"></span> 
+	      <div class="modal-body text-center">
+	        Change status of <span id="inventorytools_update"></span> from <span id="inventorytools_update_from"></span> to
 	      </div>
 	      <div class="modal-footer">
 	      <!-- USE JS TRAVERSING TO REFLECT tool details being updated -->
-	      	<form action="" method="POST">
+	      	<form method="POST" id="howmygash" action="">
+                        @csrf
+                        @method('PATCH')
 	      		<span style="display: inline-block;">
-	      			<span style="display: inline-block;">from</span>
-	      		
-		      		 <span id="inventorytools_update_from"></span> to 
 		      		<select id="inventorytools_update_to" type="text" class="form-control" name="inventorytools_update_to" required autofocus>
 		      			<option value="functioning">Functioning</option>     	
 		      			<option value="needs repair">Needs Repair</option>
@@ -82,7 +82,7 @@
 	 		        </select>
  		        </span>
 	      		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	       	 	<button type="button" class="btn btn-primary">Save changes</button>
+	       	 	<button type="submit" class="btn btn-primary">Save changes</button>
 	      	</form>
 	      </div>
 	    </div>

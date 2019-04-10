@@ -28,29 +28,51 @@
             </div>
         </div>
 
-        <div class="container">
-            <div class="row mt-5">
-                <div class="card-deck mt-5">
+        <div class="container justify-content-center">
+            <div class="row mt-5 justify-content-center">
+                
                     @foreach($returns as $return)
-                    <div class="card">
-                        <img src="">
+                        @php
+                            $image = $return["image"];
+                        @endphp
+                    <div class="card mb-5 mt-5 mr-2" style="width: 18rem; height: auto">
+                        <div class="justify-content-center">
+                           <img src='{{ asset("images/tools/{$image}")}}' class="card-img-top" style="width: 150px; height: 270px; align-content: center;"> 
+                        </div> 
                         <div class="card-body">
                             <h5 class="card-title"> {{ $return["name"] }} </h5>
                             <p class="card-text"> {{ $return["description"]}} </p>
                         </div>
                         <div class="card-footer">
-                            <p class="card-text">Available : {{ $return["available"] }} </p>
-                            <p class="card-text">Total : {{ $return["total"] }} </p>
-                        </div> 
-                        <form action="/cart/{{ $return['id']}}" method="POST">
-                            @csrf
-                           <!--  <input type="number" name="quantity" value="1"> -->
-                            <button class="card-text btn btn-primary btn-block mt-2"> <i class="fas fa-cart-plus"></i> </button>
-                        </form>                       
-
+                            <p class="card-text">Available 
+                                @if($return["available"] >1)
+                                    units : {{ $return["available"] }}
+                                @else
+                                    unit : {{ $return["available"] }}
+                                @endif
+                            </p>
+                            <p class="card-text">Total 
+                                @if($return["total"] >1)
+                                    units : {{ $return["total"] }}
+                                @else
+                                    unit : {{ $return["total"] }}
+                                @endif
+                            </p>
+                        </div>
+                        @if(Auth::user()->type == "admin")
+                        @else 
+                            <div class="justify-content-center">
+                                <form action="/cart/{{ $return['id']}}"   method="POST">
+                                @csrf
+                               <!--  <input type="number" name="quantity" value="1"> -->
+                                <button class="card-text btn btn-primary text-center btn-block"> Add to cart </button>
+                            </form>    
+                            </div>
+                                                   
+                        @endif
                     </div>
                     @endforeach
-                </div>
+                
             </div>
         </div>      
     </div>

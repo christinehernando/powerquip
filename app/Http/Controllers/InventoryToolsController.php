@@ -127,9 +127,14 @@ class InventoryToolsController extends Controller
      * @param  \App\InventoryTools  $inventoryTools
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, InventoryTools $inventoryTools)
+    public function update(Request $request, $id)
     {
-        //
+        $tool = InventoryTools::find($id);
+
+        $tool->status = $request->inventorytools_update_to;
+        $tool->save();
+
+        return redirect('/inventorytools');
     }
 
     /**
@@ -142,4 +147,6 @@ class InventoryToolsController extends Controller
     {
         //
     }
+
+
 }

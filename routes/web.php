@@ -78,6 +78,7 @@ Route::get('/admin/{id}/return', 'BorrowsController@return');
 
 Route::get('/account','CgeController@index');
 Route::get('/account/{$id}/deliver','UserDashboardController@deliver');
+Route::get('/borrows/account','CgeController@store');
 
 
 /*

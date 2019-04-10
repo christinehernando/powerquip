@@ -7,10 +7,10 @@
 @section('content')
 	<div class="container mt-4">
 		<!-- CART REQUEST -->
-    	<button class="btn btn-info btn-block mt-4" type="button" data-toggle="collapse" data-target="#collapseCart" aria-expanded="false" aria-controls="collapseExample">
+    	<button class="btn btn-info btn-block mt-4 mb-3 " type="button" data-toggle="collapse" data-target="#collapseCart" aria-expanded="false" aria-controls="collapseExample">
     		Cart Items For Request
   		</button>
-  		<div class="collapse mt-4" id="collapseCart">
+  		<div class="collapse mt-4 mb-5" id="collapseCart">
   			<div class="card card-body">
   				@empty($cart)
 					No items in cart
@@ -55,7 +55,7 @@
 				    		</tbody>
 				    		
 				    	</table>
-				    	<a href="/borrows" method="GET">
+				    	<a href="/borrows/account" method="GET">
 				    		<button class="btn btn-success btn-block">Submit Request</button>
 				    	</a>	
 				    </div>
@@ -64,29 +64,30 @@
   		</div>
 
   		<!-- APPROVE REQUEST -->
-    	<button class="btn btn-info btn-block" type="button" data-toggle="collapse" data-target="#collapseApproveRequestUser" aria-expanded="false" aria-controls="collapseExample">
-    		Borrow Request For Approval
+    	<button class="btn btn-info btn-block mt-4 mb-3" type="button" data-toggle="collapse" data-target="#collapseApproveRequestUser" aria-expanded="false" aria-controls="collapseExample">
+    		Tool Request For Approval 
+    		
   		</button>
-  		<div class="collapse mt-4" id="collapseApproveRequestUser">
+  		<div class="collapse mt-4 mb-5" id="collapseApproveRequestUser">
 		  <div class="card card-body">
 		    @forelse($forApproval as $index =>$borrow)
 		    	<div class="card mb-5">
 		    		<div class="card-header">
 		    			<div class="form-group row">
-		    				<label class="col-sm-2 col-form-label">No</label>
-		    				<div class="col-sm-10"> {{ ++$index }}</div>
+		    				<label class="col-sm-4 col-form-label">No</label>
+		    				<div class="col-sm-8"> {{ ++$index }}</div>
 		    			</div>
 		    			<div class="form-group row">
-		    				<label class="col-sm-2 col-form-label">Transaction Code</label>
-		    				<div class="col-sm-10">{{ $borrow->transaction_code }}</div>
+		    				<label class="col-sm-4 col-form-label">Transaction Code</label>
+		    				<div class="col-sm-8">{{ $borrow->transaction_code }}</div>
 		    			</div>
 		    			<div class="form-group row">
-		    				<label class="col-sm-2 col-form-label">Member</label>
-		    				<div class="col-sm-10">{{ $borrow->user_id }} - {{ ucfirst($borrow->user->first_name) }} {{ ucfirst($borrow->user->last_name) }}</div>
+		    				<label class="col-sm-4 col-form-label">Member</label>
+		    				<div class="col-sm-8">{{ $borrow->user_id }} - {{ ucfirst($borrow->user->first_name) }} {{ ucfirst($borrow->user->last_name) }}</div>
 		    			</div>
 		    			<div class="form-group row">
-		    				<label class="col-sm-2 col-form-label">Current Status</label>
-		    				<div class="col-sm-10">{{ ucfirst($borrow->status) }}</div>
+		    				<label class="col-sm-4 col-form-label">Current Status</label>
+		    				<div class="col-sm-8">{{ ucfirst($borrow->status) }}</div>
 		    			</div>
 		    		</div>
 		    		<div class="card-body">
@@ -122,7 +123,7 @@
 
 		<!-- DELIVERED -->
     	<button class="btn btn-info btn-block mt-4" type="button" data-toggle="collapse" data-target="#collapseDeliverUser" aria-expanded="false" aria-controls="collapseExample">
-    		Deliver Approved Request
+    		Approved Tool Requests For Pick Up
   		</button>
   		<div class="collapse mt-4" id="collapseDeliverUser">
   			<div class="card card-body">
@@ -130,20 +131,20 @@
   					<div class="card mb-5">
   						<div class="card-header">
   							<div class="form-group row">
-			    				<label class="col-sm-2 col-form-label">No</label>
-			    				<div class="col-sm-10"> {{ ++$index }}</div>
+			    				<label class="col-sm-4 col-form-label">No</label>
+			    				<div class="col-sm-8"> {{ ++$index }}</div>
 			    			</div>
 			    			<div class="form-group row">
-			    				<label class="col-sm-2 col-form-label">Transaction Code</label>
-			    				<div class="col-sm-10">{{ $borrow->transaction_code }}</div>
+			    				<label class="col-sm-4 col-form-label">Transaction Code</label>
+			    				<div class="col-sm-8">{{ $borrow->transaction_code }}</div>
 			    			</div>
 			    			<div class="form-group row">
-			    				<label class="col-sm-2 col-form-label">Member</label>
-			    				<div class="col-sm-10">{{ $borrow->user_id }} - {{ ucfirst($borrow->user->first_name) }} {{ ucfirst($borrow->user->last_name) }}</div>
+			    				<label class="col-sm-4 col-form-label">Member</label>
+			    				<div class="col-sm-8">{{ $borrow->user_id }} - {{ ucfirst($borrow->user->first_name) }} {{ ucfirst($borrow->user->last_name) }}</div>
 			    			</div>
 			    			<div class="form-group row">
-			    				<label class="col-sm-2 col-form-label">Current Status</label>
-			    				<div class="col-sm-10">{{ ucfirst($borrow->status) }}</div>
+			    				<label class="col-sm-4 col-form-label">Current Status</label>
+			    				<div class="col-sm-8">{{ ucfirst($borrow->status) }}</div>
 			    			</div>
   						</div>
   						<div class="card-body">
@@ -172,7 +173,7 @@
   						</div>
   						<div class="card-footer">
 	    						<a href="/account/{{ $borrow->id }}/deliver">
-	    							<button class="btn btn-success btn-block">Delivered</button>
+	    							<button class="btn btn-success btn-block">Picked up in good order.</button>
 	    						</a>
   						</div>
   						

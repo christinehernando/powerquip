@@ -16,20 +16,20 @@
 		    	<div class="card mb-5">
 		    		<div class="card-header">
 		    			<div class="form-group row">
-		    				<label class="col-sm-2 col-form-label">No</label>
-		    				<div class="col-sm-10"> {{ ++$index }}</div>
+		    				<label class="col-sm-4 col-form-label">No</label>
+		    				<div class="col-sm-8"> {{ ++$index }}</div>
 		    			</div>
 		    			<div class="form-group row">
-		    				<label class="col-sm-2 col-form-label">Transaction Code</label>
-		    				<div class="col-sm-10">{{ $borrow->transaction_code }}</div>
+		    				<label class="col-sm-4 col-form-label">Transaction Code</label>
+		    				<div class="col-sm-8">{{ $borrow->transaction_code }}</div>
 		    			</div>
 		    			<div class="form-group row">
-		    				<label class="col-sm-2 col-form-label">Member</label>
-		    				<div class="col-sm-10">{{ $borrow->user_id }} - {{ ucfirst($borrow->user->first_name) }} {{ ucfirst($borrow->user->last_name) }}</div>
+		    				<label class="col-sm-4 col-form-label">Member</label>
+		    				<div class="col-sm-8">{{ $borrow->user_id }} - {{ ucfirst($borrow->user->first_name) }} {{ ucfirst($borrow->user->last_name) }}</div>
 		    			</div>
 		    			<div class="form-group row">
-		    				<label class="col-sm-2 col-form-label">Current Status</label>
-		    				<div class="col-sm-10">{{ ucfirst($borrow->status) }}</div>
+		    				<label class="col-sm-4 col-form-label">Current Status</label>
+		    				<div class="col-sm-8">{{ ucfirst($borrow->status) }}</div>
 		    			</div>
 		    		</div>
 		    		<div class="card-body">
@@ -80,20 +80,20 @@
   					<div class="card mb-5">
   						<div class="card-header">
   							<div class="form-group row">
-			    				<label class="col-sm-2 col-form-label">No</label>
-			    				<div class="col-sm-10"> {{ ++$index }}</div>
+			    				<label class="col-sm-4 col-form-label">No</label>
+			    				<div class="col-sm-8"> {{ ++$index }}</div>
 			    			</div>
 			    			<div class="form-group row">
-			    				<label class="col-sm-2 col-form-label">Transaction Code</label>
-			    				<div class="col-sm-10">{{ $borrow->transaction_code }}</div>
+			    				<label class="col-sm-4 col-form-label">Transaction Code</label>
+			    				<div class="col-sm-8">{{ $borrow->transaction_code }}</div>
 			    			</div>
 			    			<div class="form-group row">
-			    				<label class="col-sm-2 col-form-label">Member</label>
-			    				<div class="col-sm-10">{{ $borrow->user_id }} - {{ ucfirst($borrow->user->first_name) }} {{ ucfirst($borrow->user->last_name) }}</div>
+			    				<label class="col-sm-4 col-form-label">Member</label>
+			    				<div class="col-sm-8">{{ $borrow->user_id }} - {{ ucfirst($borrow->user->first_name) }} {{ ucfirst($borrow->user->last_name) }}</div>
 			    			</div>
 			    			<div class="form-group row">
-			    				<label class="col-sm-2 col-form-label">Current Status</label>
-			    				<div class="col-sm-10">{{ ucfirst($borrow->status) }}</div>
+			    				<label class="col-sm-4 col-form-label">Current Status</label>
+			    				<div class="col-sm-8">{{ ucfirst($borrow->status) }}</div>
 			    			</div>
   						</div>
   						<div class="card-body">
